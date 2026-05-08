@@ -1,0 +1,332 @@
+```html
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ================= SEO META TAGS ================= -->
+    <title>Global Choice | แหล่งรวมสินค้าคุณภาพ โปรโมชั่นและดีลที่ดีที่สุด</title>
+    <meta name="description" content="เว็บไซต์แนะนำสินค้าคุณภาพเยี่ยม คัดสรรดีลที่ดีที่สุดจากแพลตฟอร์มชั้นนำระดับโลก ทั้ง Shopee, Lazada, TikTok Shop และ Amazon พร้อมส่วนลดพิเศษ">
+    <meta name="keywords" content="รีวิวสินค้า, สินค้าแนะนำ, ช้อปปิ้งออนไลน์, โค้ดส่วนลด, Shopee, Lazada, TikTok Shop, Amazon, ดีลพิเศษ, Affiliate">
+    <meta name="author" content="Global Choice Affiliate">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph for Social Media Sharing -->
+    <meta property="og:title" content="Global Choice | แหล่งรวมสินค้าคุณภาพ">
+    <meta property="og:description" content="ค้นพบดีลที่ดีที่สุดจากแพลตฟอร์มออนไลน์ชั้นนำ คลิกเลย!">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+
+    <!-- ================= EXTERNAL LIBRARIES ================= -->
+    <!-- Tailwind CSS (Styling) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Typography) -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ================= CUSTOM THEME CONFIG ================= -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0f172a',    // Slate 900 (Formal & Professional)
+                        secondary: '#3b82f6',  // Blue 500 (Trust & Action)
+                        accent: '#f59e0b',     // Amber 500 (Highlights)
+                        shopee: '#ee4d2d',
+                        lazada: '#0f146d',
+                        tiktok: '#000000',
+                        amazon: '#ff9900'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Animation */
+        body { scroll-behavior: smooth; }
+        .product-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        
+        /* Hide Google Translate top bar */
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        body { top: 0px !important; }
+        .goog-te-gadget { font-family: 'Prompt', sans-serif !important; color: transparent !important; }
+        .goog-te-gadget .goog-te-combo { margin: 0; padding: 0.25rem; border-radius: 0.375rem; border: 1px solid #d1d5db; color: #374151; font-family: 'Prompt', sans-serif; outline: none; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+
+    <!-- ================= HEADER & NAVIGATION ================= -->
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center cursor-pointer group" onclick="switchTab('home')">
+                    <div class="w-10 h-10 bg-primary text-white rounded-lg flex items-center justify-center mr-3 group-hover:bg-secondary transition">
+                        <i class="fa-solid fa-gem text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-primary tracking-tight">Global Choice</h1>
+                        <p class="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Premium Affiliate Network</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-6">
+                    <button onclick="switchTab('home')" class="text-slate-600 hover:text-secondary font-medium transition" id="nav-home">หน้าหลัก</button>
+                    <button onclick="switchTab('admin')" class="text-slate-600 hover:text-secondary font-medium transition" id="nav-admin"><i class="fa-solid fa-lock text-xs mr-1"></i> จัดการระบบ</button>
+                    
+                    <!-- AI Translator Widget -->
+                    <div class="pl-4 border-l border-slate-200 flex items-center">
+                        <i class="fa-solid fa-language text-slate-400 mr-2 text-lg"></i>
+                        <div id="google_translate_element"></div>
+                    </div>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="text-slate-600 focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 shadow-inner">
+            <div class="px-4 py-2 space-y-1">
+                <button onclick="switchTab('home'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-2 text-slate-700 hover:bg-slate-50 rounded-md font-medium">หน้าหลัก</button>
+                <button onclick="switchTab('admin'); document.getElementById('mobile-menu').classList.add('hidden')" class="block w-full text-left px-3 py-2 text-slate-700 hover:bg-slate-50 rounded-md font-medium">จัดการระบบ (Admin)</button>
+                <div class="px-3 py-2 border-t border-slate-100 mt-2">
+                    <p class="text-xs text-slate-400 mb-1">แปลภาษา / Translate</p>
+                    <div id="google_translate_element_mobile"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="flex-grow w-full">
+
+        <!-- ===== VIEW: HOME (PRODUCT GALLERY) ===== -->
+        <section id="view-home" class="block">
+            <!-- Hero Section -->
+            <div class="bg-primary relative overflow-hidden">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-20"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 relative z-10 text-center">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
+                        คัดสรร <span class="text-accent">สินค้าคุณภาพ</span> จากทั่วทุกมุมโลก
+                    </h2>
+                    <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 font-light">
+                        เราวิเคราะห์และรวบรวมดีลที่ดีที่สุดจากแพลตฟอร์มชั้นนำ เพื่อให้คุณได้สินค้าที่ตรงใจในราคาที่คุ้มค่าที่สุด อัปเดตใหม่ทุกวัน
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 text-white text-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-400 mr-2 animate-pulse"></span> อัปเดตล่าสุดวันนี้
+                        </div>
+                        <div class="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 text-white text-sm">
+                            <i class="fa-solid fa-shield-check mr-2 text-secondary"></i> การันตีลิงก์ปลอดภัย
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Display Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="flex justify-between items-end mb-8 border-b border-slate-200 pb-4">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900">สินค้าแนะนำ (Featured Items)</h3>
+                        <p class="text-slate-500 mt-1">คลิกที่ปุ่มเพื่อไปยังหน้าร้านค้าและรับส่วนลด</p>
+                    </div>
+                    <!-- Optional: Filter could be added here in the future -->
+                </div>
+
+                <!-- Products Grid (Injected via JS) -->
+                <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Products rendered here -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===== VIEW: ADMIN (ADD AFFILIATE LINKS) ===== -->
+        <section id="view-admin" class="hidden py-12">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6">
+                <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100">
+                    <div class="bg-slate-50 px-8 py-6 border-b border-slate-100 flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900">เพิ่มสินค้า Affiliate</h2>
+                            <p class="text-slate-500 text-sm mt-1">ข้อมูลจะถูกบันทึกและแสดงในหน้าหลักทันที</p>
+                        </div>
+                        <i class="fa-solid fa-database text-3xl text-slate-300"></i>
+                    </div>
+
+                    <div class="p-8">
+                        <form id="affiliate-form" onsubmit="saveProduct(event)">
+                            <div class="space-y-6">
+                                <!-- Product Name -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">ชื่อสินค้า <span class="text-red-500">*</span></label>
+                                    <input type="text" id="prod-name" required placeholder="เช่น หูฟังไร้สาย Sony, กล้องวงจรปิด Xiaomi" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition">
+                                </div>
+
+                                <!-- Product Description -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">รายละเอียด / จุดเด่น (SEO Text)</label>
+                                    <textarea id="prod-desc" rows="3" placeholder="อธิบายจุดเด่นสินค้าเพื่อช่วยในการตัดสินใจและ SEO..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition"></textarea>
+                                </div>
+
+                                <!-- Image URL -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">URL รูปภาพสินค้า <span class="text-red-500">*</span></label>
+                                    <input type="url" id="prod-image" required placeholder="https://..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition">
+                                    <p class="text-xs text-slate-400 mt-2">แนะนำให้ใช้รูปลิงก์ตรง (ลงท้ายด้วย .jpg, .png)</p>
+                                </div>
+
+                                <!-- Grid layout for Link & Platform -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-slate-700 mb-2">ลิงก์ Affiliate ของคุณ <span class="text-red-500">*</span></label>
+                                        <input type="url" id="prod-link" required placeholder="https://..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-slate-700 mb-2">แพลตฟอร์มปลายทาง</label>
+                                        <select id="prod-platform" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition appearance-none">
+                                            <option value="shopee">Shopee</option>
+                                            <option value="lazada">Lazada</option>
+                                            <option value="tiktok">TikTok Shop</option>
+                                            <option value="amazon">Amazon</option>
+                                            <option value="general">เว็บไซต์อื่นๆ</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4 border-t border-slate-100">
+                                    <button type="submit" class="w-full bg-primary hover:bg-slate-800 text-white font-bold py-4 px-6 rounded-xl transition duration-200 shadow-lg shadow-slate-900/20 flex justify-center items-center">
+                                        <i class="fa-solid fa-cloud-arrow-up mr-2"></i> บันทึกข้อมูลและเผยแพร่
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Admin Delete Info -->
+                <div class="mt-8 text-center text-sm text-slate-500">
+                    * สินค้าที่เพิ่มจะถูกบันทึกไว้ใน Local Storage ของเบราว์เซอร์นี้
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-primary text-slate-300 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <!-- Brand -->
+                <div>
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center">
+                        <i class="fa-solid fa-gem mr-2 text-secondary"></i> Global Choice
+                    </h3>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                        แพลตฟอร์มรวมดีลสินค้า Affiliate ที่ดีที่สุด พร้อมระบบแปลภาษา AI ให้ผู้คนทั่วโลกสามารถเข้าถึงสินค้าคุณภาพได้ง่ายดาย
+                    </p>
+                </div>
+                <!-- Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">หมวดหมู่ยอดนิยม</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-secondary transition">อุปกรณ์ไอที & แก็ดเจ็ต</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">แฟชั่น & เครื่องแต่งกาย</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">บ้าน & ไลฟ์สไตล์</a></li>
+                        <li><a href="#" class="hover:text-secondary transition">สุขภาพ & ความงาม</a></li>
+                    </ul>
+                </div>
+                <!-- Security -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">พันธมิตรของเรา</h4>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-3 py-1 bg-white/10 rounded-md text-xs border border-white/10">Shopee</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-md text-xs border border-white/10">Lazada</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-md text-xs border border-white/10">TikTok</span>
+                        <span class="px-3 py-1 bg-white/10 rounded-md text-xs border border-white/10">Amazon</span>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2026 Global Choice Affiliate. All Rights Reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0 text-lg">
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= TOAST NOTIFICATION ================= -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-24 opacity-0 transition-all duration-300 z-50 flex items-center border border-slate-700">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-green-400 text-xl mr-3"></i>
+        <div>
+            <h4 class="font-bold text-sm" id="toast-title">สำเร็จ</h4>
+            <p class="text-xs text-slate-300" id="toast-msg">ข้อความแจ้งเตือน</p>
+        </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT APP LOGIC ================= -->
+    <script>
+        // --- Mock Data (ตัวอย่างสินค้าเริ่มต้น) ---
+        const defaultProducts = [
+            {
+                id: '1',
+                name: 'สมาร์ทวอทช์ 2026 Edition',
+                desc: 'ติดตามสุขภาพ แบตเตอรี่อยู่ได้นาน 14 วัน รองรับภาษาไทยและกันน้ำ',
+                image: 'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                link: '#',
+                platform: 'shopee'
+            },
+            {
+                id: '2',
+                name: 'หูฟังบลูทูธ ตัดเสียงรบกวน',
+                desc: 'ระบบ ANC อัจฉริยะ ให้เสียงเบสลึกคมชัด เหมาะสำหรับการเดินทางและทำงาน',
+                image: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                link: '#',
+                platform: 'lazada'
+            },
+            {
+                id: '3',
+                name: 'โคมไฟแต่งห้องมินิมอล',
+                desc: 'ไอเท็มยอดฮิตตบแต่งห้องให้น่าอยู่ ปรับแสงได้ 3 ระดับ',
+                image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                link: '#',
+                platform: 'tiktok'
+            },
+            {
+                id: '4',
+                name: 'หนังสือ AI For Business',
+                desc: 'คู่มือพัฒนาธุรกิจด้วย AI ระดับโลก ฉบับแปลภาษาไทย Bestseller',
+                image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+                link: '#',
+                platform: 'amazon'
+            }
+        ];
+
+        // --- State Management ---
+        let products = [];
+
+        // --- Initialization ---
+        function initApp() {
+            // โหลดข้อมูลจาก LocalStorage
+            const stored = localStorage.getItem('globalChoiceAffiliateData');
+            if (stored) {
+                products = JSON.parse(stored);
+            } else {
+                products = defau
